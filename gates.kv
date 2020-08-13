@@ -1,0 +1,116 @@
+<NotGate>:
+    canvas:
+        Color:
+            rgb: 0, 0, 0
+        Line:
+            points: self.center_x - 25, self.center_y - 25, self.center_x - 25, self.center_y + 25, self.center_x + 15, self.center_y, self.center_x - 25, self.center_y - 25
+            width: 1
+        Line:
+            circle: self.center_x + 20, self.center_y, 5
+        Line:
+            points: self.center_x - 25, self.center_y, self.center_x - 35, self.center_y
+        Line:
+            points: self.center_x + 25, self.center_y, self.center_x + 35, self.center_y
+    Label:
+        color: [0, 0, 0, 1]
+        pos: root.pos[0]-10, root.pos[1]
+        font_size: 10
+        text: root.name
+
+
+<OrGate>:
+    canvas:
+        Color:
+            rgb: 0, 0, 0
+        Line:
+            points: self.center_x, self.center_y - 25, self.center_x - 25, self.center_y - 25
+        Line:
+            points: self.center_x, self.center_y + 25, self.center_x - 25, self.center_y + 25
+        Line:
+            circle: self.center_x, self.center_y, 25, 0, 180
+        Line:
+            circle: self.center_x - 25, self.center_y, 25, 0, 180
+        Line:
+            points: self.center_x - 5, self.center_y - 15, self.center_x - 35, self.center_y - 15
+        Line:
+            points: self.center_x - 5, self.center_y + 15, self.center_x - 35, self.center_y + 15
+        Line:
+            points: self.center_x + 25, self.center_y, self.center_x + 35, self.center_y
+    Label:
+        color: [0, 0, 0, 1]
+        pos: root.pos[0]-10, root.pos[1]
+        font_size: 10
+        text: root.name
+
+
+<AndGate>:
+    canvas:
+        Color:
+            rgb: 0, 0, 0
+        Line:
+            points: self.center_x, self.center_y - 25, self.center_x - 25, self.center_y - 25, self.center_x - 25, self.center_y + 25, self.center_x, self.center_y + 25
+        Line:
+            circle: self.center_x, self.center_y, 25, 0, 180
+        Line:
+            points: self.center_x - 25, self.center_y - 15, self.center_x - 35, self.center_y - 15
+        Line:
+            points: self.center_x - 25, self.center_y + 15, self.center_x - 35, self.center_y + 15
+        Line:
+            points: self.center_x + 25, self.center_y, self.center_x + 35, self.center_y
+    Label:
+        color: [0, 0, 0, 1]
+        pos: root.pos[0]-10, root.pos[1]
+        font_size: 10
+        text: root.name
+
+
+<Symbol>:
+    canvas:
+        Color:
+            rgb: 0, 0, 0
+        Line:
+            circle: self.center_x, self.center_y, 15
+        Line:
+            points: self.center_x + 15, self.center_y, self.center_x + 50, self.center_y
+    Label:
+        color: [0, 0, 0, 1]
+        pos: root.pos[0]-5, root.pos[1]+25
+        font_size: 15
+        text: root.name
+
+<Output>:
+    canvas:
+        Color:
+            rgb: 0, 0, 0
+        Line:
+            circle: self.center_x, self.center_y, 15
+        Line:
+            points: self.center_x - 15, self.center_y, self.center_x - 35, self.center_y
+    Label:
+        color: [0, 0, 0, 1]
+        pos: root.pos[0] + 40, root.pos[1]
+        font_size: 15
+        text: root.name
+
+
+<Wire>:
+    canvas:
+        Color:
+            rgb: 0, 0, 0, 1
+        Line:
+            points: self.start_x, self.start_y, self.start_x, self.stop_y, self.stop_x, self.stop_y
+        Ellipse:
+            pos: self.start_x - 2.5, self.start_y - 2.5
+            size: 5, 5
+        Ellipse:
+            pos: self.stop_x - 2.5, self.stop_y - 2.5
+            size: 5, 5
+    Label:
+        color: [0, 0, 0, 1]
+        center_x: root.start_x + 10
+        center_y: root.start_y + 10
+        font_size: 15
+        text: root.exp
+
+
+
