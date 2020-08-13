@@ -14,7 +14,7 @@ from kivy.core.window import Window
 import circuit
 import boolean
 
-
+//displays the title of the app
 class Title(Label):
 
     def __init__(self, **kwargs):
