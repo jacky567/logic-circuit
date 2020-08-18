@@ -14,7 +14,8 @@ from kivy.core.window import Window
 import circuit
 import boolean
 
-//displays the title of the app
+
+# class to displays the title of the app
 class Title(Label):
 
     def __init__(self, **kwargs):
@@ -26,6 +27,7 @@ class Title(Label):
         self.valign = 'middle'
 
 
+# class for the menu bar
 class Menu(BoxLayout):
 
     def __init__(self, **kwargs):
@@ -45,16 +47,17 @@ class Menu(BoxLayout):
         root.taskpanel.inp.text = ""
 
 
+# class for the task panel
 class TaskPanel(FloatLayout):
 
     def __init__(self, **kwargs):
         super(TaskPanel, self).__init__(**kwargs)
-        self.lab = Label(text="Enter Boolean Expression:", size_hint_x=0.2, size_hint_y=0.2, pos_hint={'x':.25, 'y':.85})
-        self.inp = TextInput(size_hint_x=0.9, size_hint_y=0.1, pos_hint={'x':.05, 'y':.8}, font_size=25)
-        self.error = Label(size_hint_x=0.2, size_hint_y=0.2, pos_hint={'x': .25, 'y':.68}, color=(1,0,0,1))
-        self.simplify = Button(text="Simplify", size_hint_x=0.8, size_hint_y=0.1, pos_hint={'x':.1, 'y':.6})
-        self.truthtable = Button(text="Truth Table", size_hint_x=0.8, size_hint_y=0.1, pos_hint={'x':.1, 'y':.4})
-        self.logiccircuit = Button(text="Logic Circuit", size_hint_x=0.8, size_hint_y=0.1, pos_hint={'x':.1, 'y':.2})
+        self.lab = Label(text="Enter Boolean Expression:", size_hint_x=0.2, size_hint_y=0.2, pos_hint={'x': .25, 'y': .85})
+        self.inp = TextInput(size_hint_x=0.9, size_hint_y=0.1, pos_hint={'x': .05, 'y': .8}, font_size=25)
+        self.error = Label(size_hint_x=0.2, size_hint_y=0.2, pos_hint={'x': .25, 'y': .68}, color=(1, 0, 0, 1))
+        self.simplify = Button(text="Simplify", size_hint_x=0.8, size_hint_y=0.1, pos_hint={'x': .1, 'y': .6})
+        self.truthtable = Button(text="Truth Table", size_hint_x=0.8, size_hint_y=0.1, pos_hint={'x': .1, 'y': .4})
+        self.logiccircuit = Button(text="Logic Circuit", size_hint_x=0.8, size_hint_y=0.1, pos_hint={'x': .1, 'y': .2})
         self.add_widget(self.lab)
         self.add_widget(self.inp)
         self.add_widget(self.error)
@@ -78,7 +81,6 @@ class TaskPanel(FloatLayout):
             error = "Invalid Expression"
             self.error.text = error
 
-
     def draw_truthtable(self, obj):
         try:
             txt = self.inp.text
@@ -91,7 +93,6 @@ class TaskPanel(FloatLayout):
             error = "Invalid Expression"
             self.error.text = error
 
-
     def draw_circuit(self, obj):
         txt = self.inp.text
         db = root.drawingboard
@@ -103,12 +104,9 @@ class TaskPanel(FloatLayout):
             x = 500
         if y < 500:
             y = 500
-        print(x)
         cir.size_hint_x = None
         cir.size_hint_y = None
         cir.size = (x, y)
-        print("fghj")
-        print(cir.size)
         db.clear_widgets()
         db.add_widget(cir)
         self.error.text = ""
@@ -137,7 +135,7 @@ class TaskPanel(FloatLayout):
         #     self.error.text = error
 
 
-
+# class for the display board
 class DrawingBoard(ScrollView):
 
     def __init__(self, **kwargs):
@@ -153,7 +151,6 @@ class DrawingBoard(ScrollView):
     def _update_rect(self, instance, value):
         self.rect.pos = instance.pos
         self.rect.size = instance.size
-
 
 
 # class Circuit(Widget):
@@ -181,6 +178,7 @@ class DrawingBoard(ScrollView):
 #         self.add_widget(cir)
 
 
+# class for displaying truth table
 class TruthTable(GridLayout):
 
     def __init__(self, expression, **kwargs):
@@ -231,9 +229,10 @@ class TruthTable(GridLayout):
             self.add_widget(Label(text=str(sym), pos=self.pos, size_hint_y=None, height=40, size_hint_x=None, width=100, font_size=20, color=[0,0,0,1]))
         for dic in table:
             for key in sorted(dic.keys()):
-                self.add_widget(Label(text=str(dic[key]), pos=self.pos, size_hint_y=None, height=40, size_hint_x=None, width=100, font_size=20, color=[0,0,0,1]))
+                self.add_widget(Label(text=str(dic[key]), pos=self.pos, size_hint_y=None, height=40, size_hint_x=None, width=100, font_size=20, color=[0, 0, 0, 1]))
 
 
+# class for the main window
 class MainWindow(GridLayout):
 
     def __init__(self, **kwargs):
@@ -249,6 +248,7 @@ class MainWindow(GridLayout):
         self.add_widget(self.drawingboard)
 
 
+# Main app class
 class LogicCircuitApp(App):
 
     def build(self):
@@ -257,5 +257,6 @@ class LogicCircuitApp(App):
         return root
 
 
+# Entering point to the app
 if __name__ == '__main__':
     LogicCircuitApp().run()

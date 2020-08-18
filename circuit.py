@@ -11,6 +11,7 @@ import boolean
 Builder.load_file('gates.kv')
 
 
+# Gate widget
 class Gate(Widget):
 
     def __init__(self, pos=(0, 0), **kwargs):
@@ -23,6 +24,7 @@ class Gate(Widget):
         return self.pos
 
 
+# Not gate widget
 class NotGate(Gate):
     name = StringProperty("")
 
@@ -39,6 +41,7 @@ class NotGate(Gate):
         return input
 
 
+# Or gate widget
 class OrGate(Gate):
     name = StringProperty("")
 
@@ -59,6 +62,7 @@ class OrGate(Gate):
         return input
 
 
+# And gate Widget
 class AndGate(Gate):
     name = StringProperty("")
 
@@ -79,6 +83,7 @@ class AndGate(Gate):
         return input
 
 
+# Symbol gate widget
 class Symbol(Gate):
     name = StringProperty("")
 
@@ -91,6 +96,7 @@ class Symbol(Gate):
         return output
 
 
+# output widget
 class Output(Gate):
     name = StringProperty("")
 
@@ -103,6 +109,7 @@ class Output(Gate):
         return output
 
 
+# temp widget
 class Temp(Gate):
 
     def __init__(self, output=(0,0), **kwargs):
@@ -113,6 +120,7 @@ class Temp(Gate):
         return self.output
 
 
+# wire widget
 class Wire(Widget):
     start_x = NumericProperty(0)
     start_y = NumericProperty(0)
@@ -129,6 +137,7 @@ class Wire(Widget):
         self.stop_y = stop[1]
 
 
+# creates component for a expression
 def renderable_components(expression):
     """
     Returns an list of renderable components when given an expression.
@@ -139,7 +148,6 @@ def renderable_components(expression):
         raise TypeError(
             "Argument must be str or Expression but it is {}"
             .format(expression.__class__))
-
 
     def get_max_depth(e, max_depth, depth):
         if isinstance(e, boolean.Symbol):
@@ -172,10 +180,6 @@ def renderable_components(expression):
     symbols = {}
     no_symbols = [0]
 
-    print(max_depth)
-    print(width)
-
-
     def recursive_components(e, depth, width):
         # This function can be used if there is ever the want to attempt to make the
         # converted logic circuit look nicer by spacing the components
@@ -184,8 +188,6 @@ def renderable_components(expression):
             if e in symbols.keys():
                 pos = symbols[e]
                 rc = Symbol(str(e), pos=pos)
-                print("sym")
-                print(no_symbols[0])
             else:
                 x = 20
                 y = width
@@ -193,16 +195,11 @@ def renderable_components(expression):
                 rc = Symbol(str(e), pos=pos)
                 symbols[e] = pos
                 no_symbols[0] += 1
-                print("sym")
-                print(no_symbols[0])
         elif isinstance(e, boolean.NOT):
             x = 35 + (120 * (max_depth - depth))
             y = width
             pre = recursive_components(e.args[0], depth+1, width)
-            print(max_depth)
-            print(depth)
             pos = (x, 35 + y)
-            print(pos)
             no = str(no_component[0])
             no_component[0] += 1
             g = NotGate("N"+no, pos=pos)
@@ -225,16 +222,11 @@ def renderable_components(expression):
             x = 35 + (120 * (max_depth - depth))
             y = width
             w = ((50 * (2 ** (max_depth - depth)))/2)
-            print(y)
-            print(w)
 
             pre0 = recursive_components(e.args[0], depth + 1, width + w/2)
             pre1 = recursive_components(e.args[1], depth + 1, width - w/2)
-            print(max_depth)
-            print(depth)
 
             pos = (x, 35 + y)
-            print(pos)
             no = str(no_component[0])
             no_component[0] += 1
 
@@ -260,8 +252,6 @@ def renderable_components(expression):
 
     rc = recursive_components(expression, 0, width)
     pos = (35 + (120 * (max_depth + 1)), width + 35)
-    print("jj")
-    print(pos)
     g = Output(str(expression), pos=pos)
     start = rc.get_output()
     stop = g.get_input()
@@ -271,6 +261,5 @@ def renderable_components(expression):
     temp.add_widget(rc)
     temp.add_widget(w0)
     # temp.size = (max_depth * 125, width)
-    print(temp.size)
     return temp
 
